@@ -1,0 +1,41 @@
+﻿%% High-level architecture
+flowchart LR
+  subgraph Users
+    A1[Admins]
+    A2[Managers]
+    A3[Auditors]
+  end
+
+  A1 --> UI
+  A2 --> UI
+  A3 --> UI
+
+  UI[React Frontend]
+  API[FastAPI Backend]
+  DB[(PostgreSQL)]
+  ML[(Random Forest Model .pkl)]
+  Storage[(Reports & Logs)]
+  Partners[(Refurbishers / Recyclers)]
+
+  UI -->|JWT| API
+  API --> DB
+  API --> ML
+  API --> Storage
+  API --> Partners
+
+  subgraph Cloud
+    UI
+    API
+    DB
+    ML
+    Storage
+  end
+
+%% ML inference flow
+flowchart TB
+  Input[Asset + Sensor/Usage Data] --> Preprocess[Feature Engineering]
+  Preprocess --> RF[Random Forest Model]
+  RF --> Risk[High/Low Waste Risk]
+  Risk --> Action[Recommendation Engine]
+  Action --> Output[Repair/Refurbish/Recycle/Redeploy]
+  Output --> Log[Prediction Log + Audit Trail]
