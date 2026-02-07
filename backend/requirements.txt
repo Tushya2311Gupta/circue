@@ -11,3 +11,6 @@ joblib==1.4.2
 scikit-learn==1.5.1
 numpy==2.0.1
 reportlab==4.2.2
+pymongo == 3.13.0
+pandas == 2.0.3
+python-dotenv == 1.0.1

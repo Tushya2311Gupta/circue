@@ -3,11 +3,18 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-    model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8", extra="ignore")
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        env_file_encoding="utf-8",
+        extra="ignore"
+    )
 
     PROJECT_NAME: str = "Sustainable IT Asset Management Platform"
     API_V1_STR: str = "/api/v1"
-    SECRET_KEY: str = "change-me"
+
+    ENVIRONMENT: str = "development"
+
+    SECRET_KEY: str
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 8
     ALGORITHM: str = "HS256"
 
@@ -17,7 +24,10 @@ class Settings(BaseSettings):
     POSTGRES_SERVER: str = "db"
     POSTGRES_PORT: int = 5432
 
+    MONGO_URI: str
+
     FRONTEND_ORIGIN: str = "http://localhost:5173"
+
     MODEL_PATH: str = "models/waste_risk_rf.pkl"
     MODEL_VERSION: str = "rf-v1"
     AUTO_CREATE_TABLES: bool = True
@@ -31,5 +41,5 @@ class Settings(BaseSettings):
 
 
 @lru_cache
-def get_settings() -> Settings:  # type: ignore
+def get_settings() -> Settings:
     return Settings()
